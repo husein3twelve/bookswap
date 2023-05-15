@@ -39,6 +39,12 @@ class BooksController < ApplicationController
 		end
 	end
 
+	def destroy
+		@book = Book.find(params[:id])
+		@book.destroy
+		redirect_to root_path
+	end
+
 	# Book.new(params[:book]), instead due to security we have to build private method below and permit
 	private
 	def book_params

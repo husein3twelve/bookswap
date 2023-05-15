@@ -1,3 +1,4 @@
 <h1>Edit Book</h1>
 
 <%= render partial: "form", locals: {book: @book} %>
+<%= button_to "Delete", @book, method: :delete, data: {turbo_confirm: "Are you sure?"} %>
