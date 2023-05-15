@@ -1,10 +1,12 @@
 class BooksController < ApplicationController
+	# use except: instead of only: for inverse
+	before_action :set_book, only: [:show, :edit, :update, :destroy]
+
 	def index
 		@books = Book.all
 	end
 
 	def show
-		@book = Book.find(params[:id])
 		# error handling when id not found
 		rescue ActiveRecord::RecordNotFound
 			redirect_to root_path
@@ -27,11 +29,9 @@ class BooksController < ApplicationController
 	end
 
 	def edit
-		@book = Book.find(params[:id])
 	end
 
 	def update
-		@book = Book.find(params[:id])
 		if @book.update(book_params)
 			redirect_to @book
 		else
@@ -40,14 +40,20 @@ class BooksController < ApplicationController
 	end
 
 	def destroy
-		@book = Book.find(params[:id])
 		@book.destroy
 		redirect_to root_path
 	end
 
 	# Book.new(params[:book]), instead due to security we have to build private method below and permit
 	private
+	
 	def book_params
 		params.require(:book).permit(:title, :author)
+	end
+
+	def set_book
+		@book = Book.find(params[:id])
+	rescue ActiveRecord::RecordNotFound
+		redirect_to root_path
 	end
 end
