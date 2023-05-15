@@ -26,6 +26,19 @@ class BooksController < ApplicationController
 		end
 	end
 
+	def edit
+		@book = Book.find(params[:id])
+	end
+
+	def update
+		@book = Book.find(params[:id])
+		if @book.update(book_params)
+			redirect_to @book
+		else
+			render :edit, status: :unprocessable_entity
+		end
+	end
+
 	# Book.new(params[:book]), instead due to security we have to build private method below and permit
 	private
 	def book_params

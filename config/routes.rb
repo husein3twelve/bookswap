@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get "/books/new", to: "books#new", as: :new_book
   get "/books/:id", to: "books#show", as: :book
+  patch "/books/:id", to: "books#update"
+  get "books/:id/edit", to: "books#edit", as: :edit_book
   post "books/post", to: "books#create", as: :books
 
   # Defines the root path route ("/")
