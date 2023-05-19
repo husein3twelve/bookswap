@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get "/books/my_books", to: "books#my_books", as: :my_books_book
   resources :books
+
   # Defines the root path route ("/")
   root "books#index"
 

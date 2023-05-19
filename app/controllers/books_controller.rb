@@ -45,6 +45,10 @@ class BooksController < ApplicationController
 		redirect_to root_path
 	end
 
+	def my_books
+		@books = Book.all
+	end
+
 	# Book.new(params[:book]), instead due to security we have to build private method below and permit
 	private
 	
