@@ -16,11 +16,18 @@ class BooksController < ApplicationController
 	def new
 		# creates new blog post in memory
 		@book = Book.new
+		if current_user
+			@current_user_email = current_user.email
+     		@current_user_id = current_user.id
+   		end
 	end
 
 	def create
 		# saves to database
 		@book = Book.new(book_params)
+		if current_user
+     		@book.update_attribute(:uploaded_by_id, current_user.id)
+   		end
 
 		if @book.save
 			redirect_to @book
